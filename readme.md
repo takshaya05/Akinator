@@ -41,12 +41,13 @@ Players often enjoy guessing games but lack an interactive experience that can i
 
 ## Project Structure
 
-* src/
-  * components/
-    * about/
-    * dashboard/
-    * footer/
-    * header/
+* client/
+  * src/
+    * components/
+      * about/
+      * dashboard/
+      * footer/
+      * header/
 
 * server/
   * config/
