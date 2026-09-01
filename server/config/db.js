@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     if (!process.env.MONGODB_URI) {
-      throw new Error("MONGODB_URI is missing from .env");
+      throw new Error("MONGODB_URI is missing from environment variables");
+    }
+
+    if (mongoose.connection.readyState === 1) {
+      return;
     }
 
     await mongoose.connect(process.env.MONGODB_URI);
@@ -12,7 +16,7 @@ const connectDB = async () => {
   } catch (error) {
     console.error("MongoDB connection failed:");
     console.error(error.message);
-    process.exit(1);
+    throw error;
   }
 };
 
