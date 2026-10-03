@@ -2,26 +2,19 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleNavigation = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({
-      behavior: "smooth",
-    });
-
-    setMenuOpen(false);
+  const [open, setOpen] = useState(false);
+  const goTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
   };
+
+  const links = ["home", "about", "dashboard"];
 
   return (
     <header className="header">
       <div className="header-container">
-        <button
-          className="brand"
-          onClick={() => handleNavigation("home")}
-          aria-label="Go to home"
-        >
-          <img src="/Akinator.png" alt="Akinator Logo" />
-
+        <button className="brand" onClick={() => goTo("home")}>
+          <img src="/Akinator.png" alt="Akinator" />
           <div className="brand-text">
             <span className="brand-title">AKINATOR</span>
             <span className="brand-tagline">The Mind Reading Game</span>
@@ -29,34 +22,27 @@ function Header() {
         </button>
 
         <nav className="desktop-nav">
-          <button onClick={() => handleNavigation("home")}>Home</button>
-
-          <button onClick={() => handleNavigation("about")}>About</button>
-
-          <button onClick={() => handleNavigation("dashboard")}>
-            Dashboard
-          </button>
+          {links.map((item) => (
+            <button key={item} onClick={() => goTo(item)}>
+              {item[0].toUpperCase() + item.slice(1)}
+            </button>
+          ))}
         </nav>
 
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        <button className="mobile-menu-btn" onClick={() => setOpen(!open)}>
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      <div className={`mobile-nav ${menuOpen ? "open" : ""}`}>
-        <button onClick={() => handleNavigation("home")}>Home</button>
-
-        <button onClick={() => handleNavigation("about")}>About</button>
-
-        <button onClick={() => handleNavigation("dashboard")}>
-          Dashboard
-        </button>
-      </div>
+      {open && (
+        <nav className="mobile-nav">
+          {links.map((item) => (
+            <button key={item} onClick={() => goTo(item)}>
+              {item[0].toUpperCase() + item.slice(1)}
+            </button>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }
