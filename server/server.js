@@ -18,9 +18,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "http://127.0.0.1:5173",
-      "https://akinator-game-six.vercel.app",
-    ],
+      "http://127.0.0.1:5173"
+    ]
   })
 );
 
@@ -29,7 +28,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "Akinator API is running.",
+    message: "Akinator API is running."
   });
 });
 
@@ -40,14 +39,12 @@ app.use("/api/characters", characterRoutes);
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: "API route not found.",
+    message: "API route not found."
   });
 });
 
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 module.exports = app;
