@@ -29,10 +29,10 @@ Akinator is an AI-powered guessing game where users think of a real or fictional
 * client/
   * src/
     * components/
-      * about/
-      * dashboard/
-      * footer/
-      * header/
+      * about.jsx
+      * dashboard.jsx
+      * footer.jsx
+      * header.jsx
 * server/
   * config/
   * controllers/
