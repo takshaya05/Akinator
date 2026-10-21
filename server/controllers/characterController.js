@@ -3,7 +3,7 @@ const Character = require("../models/Character");
 const getCharacters = async (req, res) => {
   try {
     const characters = await Character.find()
-      .select("name type category movie gender traits")
+      .select("name type category movie gender speciality")
       .lean();
 
     return res.status(200).json({

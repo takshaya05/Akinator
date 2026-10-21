@@ -29,9 +29,9 @@ const characterSchema = new mongoose.Schema(
       lowercase: true,
     },
 
-    traits: {
-      type: [String],
-      default: [],
+    speciality: {
+      type: String,
+      trim: true,
     },
   },
   {
