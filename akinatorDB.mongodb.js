@@ -82,6 +82,14 @@ db.characters.insertMany([
     speciality: "Commanding baritone voice"
   },
   {
+    name: "Anne Hathaway",
+    type: "real",
+    category: "Hollywood",
+    movie: "The Princess Diaries",
+    gender: "Female",
+    speciality: "Versatile performances across comedy and drama"
+  },
+  {
     name: "Anushka Sharma",
     type: "real",
     category: "Bollywood",
@@ -104,14 +112,6 @@ db.characters.insertMany([
     movie: "The Little Mermaid",
     gender: "Female",
     speciality: "Mermaid fascination with humans"
-  },
-  {
-    name: "Asterix",
-    type: "fictional",
-    category: "Asterix",
-    movie: "Asterix: The Mansions of the Gods",
-    gender: "Male",
-    speciality: "Magic potion fueled strength"
   },
   {
     name: "Batman",
@@ -218,22 +218,6 @@ db.characters.insertMany([
     speciality: "Multidimensional spellcasting"
   },
   {
-    name: "Donald Duck",
-    type: "fictional",
-    category: "Disney",
-    movie: "The Three Caballeros",
-    gender: "Male",
-    speciality: "Squawky voice and temper"
-  },
-  {
-    name: "Doraemon",
-    type: "fictional",
-    category: "Anime",
-    movie: "Stand by Me Doraemon",
-    gender: "Male",
-    speciality: "Pocket full of futuristic gadgets"
-  },
-  {
     name: "Dulquer Salmaan",
     type: "real",
     category: "Mollywood",
@@ -256,6 +240,14 @@ db.characters.insertMany([
     movie: "Frozen",
     gender: "Female",
     speciality: "Ice magic and snowstorms"
+  },
+  {
+    name: "Emma Watson",
+    type: "real",
+    category: "Hollywood",
+    movie: "Beauty and the Beast",
+    gender: "Female",
+    speciality: "Intelligent and independent character portrayals"
   },
   {
     name: "Fahadh Faasil",
@@ -322,20 +314,20 @@ db.characters.insertMany([
     speciality: "Anger-fueled superhuman strength"
   },
   {
-    name: "Irrfan Khan",
-    type: "real",
-    category: "Bollywood",
-    movie: "The Lunchbox",
-    gender: "Male",
-    speciality: "Subtle emotional expressions"
-  },
-  {
     name: "Iron Man",
     type: "fictional",
     category: "Marvel",
     movie: "Avengers: Endgame",
     gender: "Male",
     speciality: "Genius-built powered armor"
+  },
+  {
+    name: "Irrfan Khan",
+    type: "real",
+    category: "Bollywood",
+    movie: "The Lunchbox",
+    gender: "Male",
+    speciality: "Subtle emotional expressions"
   },
   {
     name: "Jackie Chan",
@@ -376,6 +368,14 @@ db.characters.insertMany([
     movie: "Magadheera",
     gender: "Female",
     speciality: "Romantic period-drama performances"
+  },
+  {
+    name: "Kalyani Priyadarshan",
+    type: "real",
+    category: "Mollywood",
+    movie: "Hridayam",
+    gender: "Female",
+    speciality: "Expressive performances and charming screen presence"
   },
   {
     name: "Kamal Haasan",
@@ -450,6 +450,14 @@ db.characters.insertMany([
     speciality: "Understated stylish action"
   },
   {
+    name: "Mamitha Baiju",
+    type: "real",
+    category: "Mollywood",
+    movie: "Premalu",
+    gender: "Female",
+    speciality: "Natural acting and relatable romantic-comedy roles"
+  },
+  {
     name: "Mammootty",
     type: "real",
     category: "Mollywood",
@@ -466,14 +474,6 @@ db.characters.insertMany([
     speciality: "Pipe-hopping mushroom kingdom hero"
   },
   {
-    name: "Mickey Mouse",
-    type: "fictional",
-    category: "Disney",
-    movie: "Mickey's Once Upon a Christmas",
-    gender: "Male",
-    speciality: "Cheerful iconic cartoon personality"
-  },
-  {
     name: "Mohanlal",
     type: "real",
     category: "Mollywood",
@@ -488,6 +488,14 @@ db.characters.insertMany([
     movie: "Moana",
     gender: "Female",
     speciality: "Ocean-guided fearless voyaging"
+  },
+  {
+    name: "Mrunal Thakur",
+    type: "real",
+    category: "Bollywood",
+    movie: "Sita Ramam",
+    gender: "Female",
+    speciality: "Emotional romantic performances"
   },
   {
     name: "Nani",
@@ -514,12 +522,12 @@ db.characters.insertMany([
     speciality: "Commanding female-led narratives"
   },
   {
-    name: "Olaf",
-    type: "fictional",
-    category: "Disney",
-    movie: "Frozen",
-    gender: "Male",
-    speciality: "Warm hugs despite being snow"
+    name: "Nithya Menen",
+    type: "real",
+    category: "Mollywood",
+    movie: "Thiruchitrambalam",
+    gender: "Female",
+    speciality: "Subtle emotional expressions and natural performances"
   },
   {
     name: "Pawan Kalyan",
@@ -536,14 +544,6 @@ db.characters.insertMany([
     movie: "Pokémon: The First Movie",
     gender: "Male",
     speciality: "Electric cheek sparks"
-  },
-  {
-    name: "Po",
-    type: "fictional",
-    category: "DreamWorks",
-    movie: "Kung Fu Panda",
-    gender: "Male",
-    speciality: "Food-loving kung fu mastery"
   },
   {
     name: "Prabhas",
@@ -568,6 +568,14 @@ db.characters.insertMany([
     movie: "Lucifer",
     gender: "Male",
     speciality: "Physically transformative dramatic roles"
+  },
+  {
+    name: "Priyanka Chopra Jonas",
+    type: "real",
+    category: "Bollywood",
+    movie: "Fashion",
+    gender: "Female",
+    speciality: "Versatile roles and strong screen presence"
   },
   {
     name: "Ram Charan",
@@ -626,6 +634,22 @@ db.characters.insertMany([
     speciality: "Intense folklore-inspired performances"
   },
   {
+    name: "Ritu Varma",
+    type: "real",
+    category: "Tollywood",
+    movie: "Pelli Choopulu",
+    gender: "Female",
+    speciality: "Natural performances and relatable characters"
+  },
+  {
+    name: "Sai Pallavi",
+    type: "real",
+    category: "Tollywood",
+    movie: "Fidaa",
+    gender: "Female",
+    speciality: "Natural acting and expressive dance performances"
+  },
+  {
     name: "Salman Khan",
     type: "real",
     category: "Bollywood",
@@ -656,14 +680,6 @@ db.characters.insertMany([
     movie: "Kabir Singh",
     gender: "Male",
     speciality: "Intense emotionally volatile characters"
-  },
-  {
-    name: "Shrek",
-    type: "fictional",
-    category: "DreamWorks",
-    movie: "Shrek",
-    gender: "Male",
-    speciality: "Grumpy swamp-dwelling ogre humor"
   },
   {
     name: "Shraddha Kapoor",
@@ -698,12 +714,12 @@ db.characters.insertMany([
     speciality: "Web-slinging and precognitive spider-sense"
   },
   {
-    name: "SpongeBob SquarePants",
-    type: "fictional",
-    category: "Nickelodeon",
-    movie: "The SpongeBob SquarePants Movie",
-    gender: "Male",
-    speciality: "Absurd optimism and pineapple home"
+    name: "Sreeleela",
+    type: "real",
+    category: "Tollywood",
+    movie: "Bhagavanth Kesari",
+    gender: "Female",
+    speciality: "Energetic dance and expressive performances"
   },
   {
     name: "Sridevi",
@@ -744,14 +760,6 @@ db.characters.insertMany([
     movie: "Thor: Ragnarok",
     gender: "Male",
     speciality: "Thunder manipulation and enchanted hammer"
-  },
-  {
-    name: "Tinker Bell",
-    type: "fictional",
-    category: "Disney",
-    movie: "Peter Pan",
-    gender: "Female",
-    speciality: "Pixie dust and tinkering"
   },
   {
     name: "Trisha Krishnan",
@@ -824,14 +832,6 @@ db.characters.insertMany([
     movie: "KGF: Chapter 2",
     gender: "Male",
     speciality: "Commanding rugged action persona"
-  },
-  {
-    name: "Yoda",
-    type: "fictional",
-    category: "Star Wars",
-    movie: "Star Wars: The Empire Strikes Back",
-    gender: "Male",
-    speciality: "Ancient Jedi wisdom and speech"
   },
   {
     name: "Zendaya",
