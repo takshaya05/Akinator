@@ -7,28 +7,26 @@ const characterSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
     type: {
       type: String,
       trim: true,
+      lowercase: true,
+      enum: ["real", "fictional"],
     },
-
     category: {
       type: String,
       trim: true,
     },
-
     movie: {
       type: String,
       trim: true,
     },
-
     gender: {
       type: String,
       trim: true,
       lowercase: true,
+      enum: ["male", "female"],
     },
-
     speciality: {
       type: String,
       trim: true,

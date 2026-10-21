@@ -8,8 +8,6 @@ const FIELD_ORDER = [
   "movie",
 ];
 
-const SMALL_CANDIDATE_LIMIT = 3;
-
 const CHARACTER_FIELDS = [
   "name",
   "type",
@@ -19,14 +17,15 @@ const CHARACTER_FIELDS = [
   "speciality",
 ];
 
+const SMALL_CANDIDATE_LIMIT = 3;
+
 const normalize = (value) => {
   if (typeof value !== "string") return "";
   return value.trim().toLowerCase();
 };
 
-const getFieldValue = (character, field) => {
-  return character?.[field] ?? "";
-};
+const getFieldValue = (character, field) =>
+  character?.[field] ?? "";
 
 const getUniqueValues = (characters, field) => {
   const values = new Map();
@@ -36,36 +35,25 @@ const getUniqueValues = (characters, field) => {
 
     if (typeof value !== "string" || !value.trim()) return;
 
-    const normalizedValue = normalize(value);
+    const normalized = normalize(value);
 
-    if (!values.has(normalizedValue)) {
-      values.set(normalizedValue, value.trim());
+    if (!values.has(normalized)) {
+      values.set(normalized, value.trim());
     }
   });
 
   return [...values.values()];
 };
 
-const getFieldLabel = (field) => {
-  const labels = {
-    type: "character type",
-    gender: "gender",
-    category: "category",
-    speciality: "speciality",
-    movie: "movie",
-  };
-
-  return labels[field] || field;
-};
-
 const createQuestion = (field, value = null) => {
   const normalizedValue = normalize(value);
+
   const id =
     field === "type" || field === "gender"
       ? field
       : `${field}:${normalizedValue}`;
 
-  const questionTemplates = {
+  const templates = {
     type: "Are you thinking of a real person or a fictional character?",
     gender: "What is the character's gender?",
     category: `Is the character associated with ${value}?`,
@@ -75,27 +63,27 @@ const createQuestion = (field, value = null) => {
 
   const isChoice = field === "type" || field === "gender";
 
+  const options =
+    field === "type"
+      ? ["real", "fictional"]
+      : field === "gender"
+        ? ["male", "female"]
+        : ["yes", "no"];
+
   const question = {
     id,
     questionId: id,
     key: field,
     questionKey: field,
     type: isChoice ? "choice" : "boolean",
-    question: questionTemplates[field],
-    text: questionTemplates[field],
+    question: templates[field],
+    text: templates[field],
+    options,
   };
 
   if (value !== null && value !== undefined) {
     question.value = value;
     question.questionValue = value;
-  }
-
-  if (field === "type") {
-    question.options = ["real", "fictional"];
-  } else if (field === "gender") {
-    question.options = ["Male", "Female"];
-  } else {
-    question.options = ["yes", "no"];
   }
 
   return question;
@@ -105,10 +93,10 @@ const parseBoolean = (value) => {
   if (typeof value === "boolean") return value;
   if (typeof value !== "string") return null;
 
-  const normalizedValue = normalize(value);
+  const normalized = normalize(value);
 
-  if (["yes", "y", "true"].includes(normalizedValue)) return true;
-  if (["no", "n", "false"].includes(normalizedValue)) return false;
+  if (["yes", "y", "true"].includes(normalized)) return true;
+  if (["no", "n", "false"].includes(normalized)) return false;
 
   return null;
 };
@@ -119,7 +107,9 @@ const getQuestionFromAnswer = (answer) => {
   }
 
   const questionId = answer.questionId || answer.id || "";
+
   let field = answer.questionKey || answer.key || "";
+
   let value =
     answer.questionValue !== undefined
       ? answer.questionValue
@@ -144,22 +134,20 @@ const getQuestionFromAnswer = (answer) => {
   const answerValue = answer.answer;
 
   if (field === "type" || field === "gender") {
-    if (typeof answerValue !== "string" || !answerValue.trim()) {
-      return null;
-    }
+    if (typeof answerValue !== "string") return null;
 
-    const normalizedAnswer = normalize(answerValue);
+    const normalized = normalize(answerValue);
 
     if (
       field === "type" &&
-      !["real", "fictional"].includes(normalizedAnswer)
+      !["real", "fictional"].includes(normalized)
     ) {
       return null;
     }
 
     if (
       field === "gender" &&
-      !["male", "female"].includes(normalizedAnswer)
+      !["male", "female"].includes(normalized)
     ) {
       return null;
     }
@@ -168,8 +156,8 @@ const getQuestionFromAnswer = (answer) => {
       id: field,
       key: field,
       type: "choice",
-      value: normalizedAnswer,
-      answer: normalizedAnswer,
+      value: normalized,
+      answer: normalized,
     };
   }
 
@@ -181,26 +169,25 @@ const getQuestionFromAnswer = (answer) => {
 
   if (booleanAnswer === null) return null;
 
-  const normalizedValue = value.trim();
-
   return {
-    id: `${field}:${normalize(normalizedValue)}`,
+    id: `${field}:${normalize(value)}`,
     key: field,
     type: "boolean",
-    value: normalizedValue,
+    value: value.trim(),
     answer: booleanAnswer,
   };
 };
 
 const matchesAnswer = (character, answer) => {
-  const characterValue = getFieldValue(character, answer.key);
+  const characterValue = normalize(
+    String(getFieldValue(character, answer.key))
+  );
 
   if (answer.key === "type" || answer.key === "gender") {
-    return normalize(String(characterValue)) === normalize(answer.value);
+    return characterValue === normalize(answer.value);
   }
 
-  const matchesValue =
-    normalize(String(characterValue)) === normalize(answer.value);
+  const matchesValue = characterValue === normalize(answer.value);
 
   return answer.answer ? matchesValue : !matchesValue;
 };
@@ -219,29 +206,24 @@ const filterCandidates = (characters, answers = []) => {
   );
 };
 
-const getAnsweredQuestionIds = (answers = []) => {
-  return new Set(
+const getAnsweredQuestionIds = (answers = []) =>
+  new Set(
     answers
       .map(getQuestionFromAnswer)
       .filter(Boolean)
       .map((answer) => answer.id)
   );
-};
 
-const getAnsweredFields = (answers = []) => {
-  return new Set(
+const getAnsweredFields = (answers = []) =>
+  new Set(
     answers
       .map(getQuestionFromAnswer)
       .filter(Boolean)
       .map((answer) => answer.key)
   );
-};
 
-const getAnsweredQuestionCount = (answers = []) => {
-  return answers
-    .map(getQuestionFromAnswer)
-    .filter(Boolean).length;
-};
+const getAnsweredQuestionCount = (answers = []) =>
+  answers.map(getQuestionFromAnswer).filter(Boolean).length;
 
 const getQuestionCandidates = (
   characters,
@@ -277,10 +259,7 @@ const calculateQuestionScore = (characters, question) => {
 
   if (yesCount === 0 || noCount === 0) return -1;
 
-  const balanceScore =
-    1 - Math.abs(yesCount - noCount) / characters.length;
-
-  return balanceScore;
+  return 1 - Math.abs(yesCount - noCount) / characters.length;
 };
 
 const getBestQuestion = (characters, questions) => {
@@ -325,9 +304,7 @@ const createResponse = ({
     inconsistentAnswers,
   };
 
-  if (message) {
-    response.message = message;
-  }
+  if (message) response.message = message;
 
   return response;
 };
@@ -341,7 +318,7 @@ const getNextQuestion = async (answers = []) => {
     .select(CHARACTER_FIELDS.join(" "))
     .lean();
 
-  if (characters.length === 0) {
+  if (!characters.length) {
     return createResponse({
       isFinished: true,
       message: "No characters are available in the database.",
@@ -354,12 +331,12 @@ const getNextQuestion = async (answers = []) => {
 
   const candidates = filterCandidates(characters, validAnswers);
 
-  if (candidates.length === 0) {
+  if (!candidates.length) {
     return createResponse({
-      candidates: [],
       isFinished: true,
       inconsistentAnswers: true,
-      message: "No character matches the selected answers. Please review your previous answers or restart the game.",
+      message:
+        "No character matches the selected answers. Please review your answers or restart the game.",
     });
   }
 
@@ -376,9 +353,7 @@ const getNextQuestion = async (answers = []) => {
   const answeredFields = getAnsweredFields(validAnswers);
 
   if (!answeredFields.has("type")) {
-    const typeValues = getUniqueValues(candidates, "type");
-
-    if (typeValues.length > 1) {
+    if (getUniqueValues(candidates, "type").length > 1) {
       return createResponse({
         question: createQuestion("type"),
         candidates,
@@ -387,9 +362,7 @@ const getNextQuestion = async (answers = []) => {
   }
 
   if (!answeredFields.has("gender")) {
-    const genderValues = getUniqueValues(candidates, "gender");
-
-    if (genderValues.length > 1) {
+    if (getUniqueValues(candidates, "gender").length > 1) {
       return createResponse({
         question: createQuestion("gender"),
         candidates,
@@ -405,10 +378,7 @@ const getNextQuestion = async (answers = []) => {
   const question = getBestQuestion(candidates, questions);
 
   if (question) {
-    return createResponse({
-      question,
-      candidates,
-    });
+    return createResponse({ question, candidates });
   }
 
   return createResponse({
@@ -416,8 +386,8 @@ const getNextQuestion = async (answers = []) => {
     isFinished: false,
     message:
       candidates.length <= SMALL_CANDIDATE_LIMIT
-        ? "I have narrowed it down to a few characters, but the available questions cannot distinguish them further."
-        : "I could not identify the character using the available database fields. More distinguishing data is needed.",
+        ? "I narrowed it down to a few characters, but the available questions cannot distinguish them further."
+        : "More distinguishing character data is needed.",
   });
 };
 
@@ -427,9 +397,7 @@ const createQuestions = (characters) => {
   const questions = [];
 
   ["type", "gender"].forEach((field) => {
-    const values = getUniqueValues(characters, field);
-
-    if (values.length > 1) {
+    if (getUniqueValues(characters, field).length > 1) {
       questions.push(createQuestion(field));
     }
   });
